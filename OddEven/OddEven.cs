@@ -12,7 +12,6 @@ namespace SortingPool
         private ParallelOddEvenSort _instance;
         
 
-
         public OddEven(int[] array, int front, int rear, ParallelOddEvenSort instance)
         {
             _rear = rear;
@@ -53,8 +52,8 @@ namespace SortingPool
                     }
                 }
             }
-            
-            Interlocked.Increment(ref _instance._iterator);
+
+            Interlocked.Decrement(ref _instance._iterator);
         }
     }
 }

@@ -1,43 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace SortingPool
 {
     class ParallelOddEvenSort : IDisposable
     {
         public  int _iterator;
-        private Array[] _array;
         private int _threadsNum;
-        private OddEven[] _oddEven;
+        private OddEven _oddEven;
         private ExtendedThreadPool _extendedThreadPool;
 
 
-        public ParallelOddEvenSort(Array[] array, int threadsNum)
+        public ParallelOddEvenSort(int threadsNum)
         {
             _iterator = 0;
-            _array = array;
             _threadsNum = threadsNum;
-            _oddEven = new OddEven[threadsNum];
             _extendedThreadPool = new ExtendedThreadPool(threadsNum);
             
         }
 
-        public void Sort()
+
+        public void Insert(int[] array)
         {
-            for (int i = 0; i < _threadsNum; i++)
+            try
             {
-                _oddEven[i] = new OddEven((int[])_array[i], 0, _array[i].Length - 1, this);
+                if (_iterator < _threadsNum)
+                {
+                    _oddEven = new OddEven(array, 0, array.Length - 1, this);
+                    _extendedThreadPool.Insert(_oddEven.Sort);
+                    Interlocked.Increment(ref this._iterator);
+                }
             }
 
-            for (int i = 0; i < _threadsNum; i++)
+            catch
             {
-                _extendedThreadPool.Insert(_oddEven[i].Sort);
+                throw new Exception();
             }
+            
+        }
 
-            while (this._iterator != _threadsNum)
-            {
-
-            }
+        public bool IsSorted()
+        {
+            return _iterator == 0;
         }
 
         public void Dispose()
