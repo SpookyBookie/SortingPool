@@ -25,7 +25,7 @@ namespace SortingPool
         {
             try
             {
-                if (_iterator < _threadsNum)
+                if (!_extendedThreadPool._extendedQueue.IsFull())
                 {
                     _oddEven = new OddEven(array, 0, array.Length - 1, this);
                     _extendedThreadPool.Insert(_oddEven.Sort);
