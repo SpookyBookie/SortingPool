@@ -37,7 +37,6 @@ namespace SortingPool
             {
                 throw new Exception();
             }
-            
         }
 
         public bool IsSorted()
@@ -47,6 +46,11 @@ namespace SortingPool
 
         public void Dispose()
         {
+            while (!IsSorted())
+            {
+
+            }
+
             _extendedThreadPool.Dispose();
         }
     }

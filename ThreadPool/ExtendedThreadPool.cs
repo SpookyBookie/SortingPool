@@ -27,13 +27,11 @@ namespace SortingPool
             }
         }
 
-
         public void Insert(VoidPoolDelegate value)
         {
             lock (_locker)
             {
                 _extendedQueue.Insert(value);
-
             }
         }
 
