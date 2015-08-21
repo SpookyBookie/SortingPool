@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -54,11 +54,11 @@ namespace SortingPool
         private ExtendedQueue<VoidPoolDelegate> _extendedQueue;
 
 
-        public Worker(ExtendedQueue<VoidPoolDelegate> poolDelegate, object locker)
+        public Worker(ExtendedQueue<VoidPoolDelegate> extendedQueue, object locker)
         {
             _delegate = null;
             _locker = locker;
-            _extendedQueue = poolDelegate;
+            _extendedQueue = extendedQueue;
         }
 
 
